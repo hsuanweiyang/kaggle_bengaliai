@@ -24,18 +24,23 @@ def plot_image(file_path):
 
 
 def transform2model_input(data_label, data_feature, batch_no):
-    output_path = os.path.join('..', 'data')
+    output_path = os.path.join('..', 'data', 'model_input', 'train')
     os.makedirs(output_path, exist_ok=True)
     data_feature_id = data_feature['image_id']
-    image_array = data_feature[np.setdiff1d(data_feature.columns, 'image_id')].values.reshape(len(data_feature_id),
-                                                                                              137, 236, 1)
-    np.save(os.path.join(output_path, 'test_x_{}'.format(batch_no)), image_array)
+    #image_array = data_feature[np.setdiff1d(data_feature.columns, 'image_id')].values.reshape(len(data_feature_id),
+    #                                                                                          137, 236, 1)
+    #np.save(os.path.join(output_path, 'test_x_{}'.format(batch_no)), image_array)
     data_label = data_label[data_label['image_id'].isin(data_feature_id)]
+    all_y = None
     for each_y in ['grapheme_root', 'vowel_diacritic', 'consonant_diacritic']:
         y = data_label[each_y]
         one_hot_y = pd.get_dummies(y).values
-        np.save(os.path.join(output_path, 'test_y_{}-{}'.format(batch_no, each_y)), one_hot_y)
-
+        if all_y is None:
+            all_y = one_hot_y
+        else:
+            all_y = np.concatenate([all_y, one_hot_y], axis=1)
+        #np.save(os.path.join(output_path, 'test_y_{}-{}'.format(batch_no, each_y)), one_hot_y)
+    np.save(os.path.join(output_path, 'train_y_{}-all'.format(batch_no)), all_y)
 
 if __name__ == '__main__':
     input_opts = argv[:]
