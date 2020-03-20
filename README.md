@@ -8,7 +8,7 @@ challenged to separately classify three constituent elements in the image: graph
 
 ## Image Preprocessing
 ### 1. Raw Image (137*236)
-    *   <img src="data_description/sample_1-0.png">
+<img src="data_description/sample_1-0.png">
 
 ### 2. Thresholding
 <img src="data_description/sample_1-1.png">
