@@ -1,6 +1,6 @@
 # Kaggle Bengaliai competition
 
-Public Leaderboard: 0.9457(mine)/0.9955(#1)
+Public Leaderboard: 0.9457(mine)/0.9955(#1)\n
 Private Leaderboard: 0.8984(mine)/0.9762(#1)
 
 ## Image Preprocessing
