@@ -1,5 +1,5 @@
 # Kaggle Bengaliai competition
-
+==============================
 *Description:  For this competition, you’re given the image of a handwritten Bengali grapheme and are
 challenged to separately classify three constituent elements in the image: grapheme root, vowel diacritics, and consonant diacritics.
 
@@ -17,9 +17,10 @@ challenged to separately classify three constituent elements in the image: graph
    <img src="data_description/sample_1-2.png">
 
 ### 4. Region of Interest
-	<img src="data_description/sample_1-3.png">
+   <img src="data_description/sample_1-3.png">
 
 ### 5. Cut & Resize (64*64)
    <img src="data_description/sample_1-4.png">
+   <img src="data_description/sample_1-5.png">
 
 ## Model
