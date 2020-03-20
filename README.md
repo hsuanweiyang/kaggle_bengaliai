@@ -8,19 +8,19 @@ challenged to separately classify three constituent elements in the image: graph
 
 ## Image Preprocessing
 ### 1. Raw Image (137*236)
-   <img src="data_description/sample_1-0.png">
+   *<img src="data_description/sample_1-0.png">
 
 ### 2. Thresholding
-   <img src="data_description/sample_1-1.png">
+<img src="data_description/sample_1-1.png">
 
 ### 3. Edge Detection (Canny)
-   <img src="data_description/sample_1-2.png">
+<img src="data_description/sample_1-2.png">
 
 ### 4. Region of Interest
-   <img src="data_description/sample_1-3.png">
+<img src="data_description/sample_1-3.png">
 
 ### 5. Cut & Resize (64*64)
-   <img src="data_description/sample_1-4.png">
-   <img src="data_description/sample_1-5.png">
+<img src="data_description/sample_1-4.png">
+<img src="data_description/sample_1-5.png">
 
 ## Model
