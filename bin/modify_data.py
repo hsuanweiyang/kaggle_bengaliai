@@ -7,11 +7,10 @@ import cv2
 
 
 def parquet_to_df(file_path):
-    data = pq.read_table(file_path)
+    data_df = pd.read_parquet(file_path)
     file_name = file_path.split('\\')[-1].split('.')[0]
-    data_df = data.to_pandas()
-    os.makedirs(os.path.join('..', 'data', 'data_df'), exist_ok=True)
-    data_df.to_pickle(os.path.join('..', 'data', 'data_df', file_name))
+    os.makedirs(os.path.join('..', 'data', 'data_feather'), exist_ok=True)
+    data_df.to_feather(os.path.join('..', 'data', 'data_feather', file_name+'.feather'))
 
 
 def plot_image(file_path):
@@ -41,6 +40,7 @@ def transform2model_input(data_label, data_feature, batch_no):
             all_y = np.concatenate([all_y, one_hot_y], axis=1)
         #np.save(os.path.join(output_path, 'test_y_{}-{}'.format(batch_no, each_y)), one_hot_y)
     np.save(os.path.join(output_path, 'train_y_{}-all'.format(batch_no)), all_y)
+
 
 if __name__ == '__main__':
     input_opts = argv[:]

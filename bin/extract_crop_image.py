@@ -2,8 +2,8 @@ import pandas as pd
 from sys import argv
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 from tqdm import tqdm
+import os
 
 
 def crop_and_resize(image_data, resize=100):
@@ -22,8 +22,6 @@ def crop_and_resize(image_data, resize=100):
             img = cv2.resize(ori_img, (resize, resize))
             error_id.append(image_data.iloc[i, 0])
         data.append(img)
-        #cv2.imshow('t', img)
-        #cv2.waitKey(0)
     print(error_id)
     data = np.stack(data).reshape(image_data.shape[0], -1)
     df = pd.DataFrame(data)
@@ -31,6 +29,21 @@ def crop_and_resize(image_data, resize=100):
     df.columns = df.columns.astype(str)
     return df
 
-img_df = pd.read_pickle(argv[1])
-modified_img = crop_and_resize(img_df, 64)
-modified_img.to_feather(argv[1]+'.feather')
+
+def resize_only(image_data, resize=64):
+    data = []
+    for i in tqdm(range(image_data.shape[0]), position=0, leave=True):
+        img = image_data.iloc[i, 1:].values.reshape(137, 236, 1)
+        img = cv2.resize(img.astype(np.uint8), (resize, resize))
+        data.append(img)
+    data = np.stack(data).reshape(image_data.shape[0], -1)
+    data = pd.DataFrame(data)
+    data.insert(0, 'image_id', image_data['image_id'].values)
+    data.columns = data.columns.astype(str)
+    return data
+
+
+img_df = pd.read_feather(argv[1])
+#modified_img = crop_and_resize(img_df, 64)
+modified_img = resize_only(img_df, 100)
+modified_img.to_feather(argv[1]+'-resize-100.feather')

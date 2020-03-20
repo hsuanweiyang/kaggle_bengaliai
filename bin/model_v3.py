@@ -3,22 +3,23 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.layers import Conv2D, Dense, MaxPooling2D, BatchNormalization, AveragePooling2D, Flatten, ReLU, GlobalAveragePooling2D, Dropout
-from tensorflow.python.platform import gfile
 import os
 from collections import defaultdict
+from datetime import datetime
 
 
 def res_block(inputs, filter_nums, strides=1):
-    conv_1 = Conv2D(filter_nums, (3, 3), strides=strides, padding='same')
+    conv_1 = Conv2D(filter_nums, (3, 3), strides=strides, padding='same',
+                    kernel_regularizer=tf.keras.regularizers.l2(l=0.02))
     bn_1 = BatchNormalization()
     activation = ReLU()
-    dropout = Dropout(rate=0.4)
-    conv_2 = Conv2D(filter_nums, (3, 3), strides=1, padding='same')
+    # dropout = Dropout(rate=0.4)
+    conv_2 = Conv2D(filter_nums, (3, 3), strides=1, padding='same', kernel_regularizer=tf.keras.regularizers.l2(l=0.02))
     bn_2 = BatchNormalization()
     output = conv_1(inputs)
     output = bn_1(output, training=True)
     output = activation(output)
-    output = dropout(output, training=True)
+    # output = dropout(output, training=True)
     output = conv_2(output)
     output = bn_2(output, training=True)
     if strides != 1:
